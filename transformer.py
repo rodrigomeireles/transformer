@@ -58,10 +58,10 @@ class TransformerBlock(nn.Module):
 
         self.attention = SelfAttention(k=k, heads=heads)
         self.norm1 = nn.LayerNorm(k)
+        # 4 vezes maior porque o tutorial quis
         self.ff = nn.Sequential(nn.Linear(k, 4 * k), nn.ReLU(), nn.Linear(4 * k, k))
         self.norm2 = nn.LayerNorm(k)
 
-    # 4 vezes maior porque o tutorial quis
     def forward(self, x: torch.Tensor):
         attended = self.attention(x)
         x = self.norm1(attended + x)
